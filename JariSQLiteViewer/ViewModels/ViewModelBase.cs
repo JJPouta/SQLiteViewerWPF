@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using JariSQLiteViewer.ViewModels.Commands;
 
 namespace JariSQLiteViewer.ViewModels
 {
@@ -10,12 +11,14 @@ namespace JariSQLiteViewer.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public DefaultCommand DefaultCommand { get; set; }
 
-
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+
+
 
     }
 }

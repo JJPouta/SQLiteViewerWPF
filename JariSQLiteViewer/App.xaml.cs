@@ -17,8 +17,11 @@ namespace JariSQLiteViewer
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            Settings.InitSettings();
             MainWindow MainView = new MainWindow();
-            MainView.DataContext = new MainViewViewModel();
+            MainViewViewModel vm = new MainViewViewModel();
+            MainView.DataContext = vm;
+            MainView.Show();
         }
 
     }

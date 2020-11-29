@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:JariSQLiteViewer"
         AllowsTransparency="True"
         WindowStyle="None"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         ResizeMode="CanResizeWithGrip"
         Background="Transparent"
         mc:Ignorable="d"
@@ -40,13 +40,18 @@
             <Grid Grid.Column="1" Grid.Row="2">
                 <Border CornerRadius="10" Style="{StaticResource AppBorder1}" BorderThickness="1"/>
                 <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
-                    <TextBox Width="100" Height="30" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="DarkBlue" materialDesign:HintAssist.Hint="DB Location" Margin="0 0 10 0" VerticalAlignment="Center"/>
+                    <ComboBox Width="150" Margin="10 0 10 0" ItemsSource="{Binding Tables}" SelectedValue="{Binding SelectedTable,Mode=OneWayToSource}"></ComboBox>
+                    <Button x:Name="fetchContent" Content="Fetch Data" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="10 0 10 0" Command="{Binding DefaultCommand}" CommandParameter="fetchData"/>
                 </StackPanel>
             </Grid>
             
             <Grid Grid.Column="1" Grid.Row="3" Margin="0 10 0 0">
                 <Border CornerRadius="10" Style="{StaticResource AppBorder1}" BorderThickness="1"/>
-                <ListView Style="{StaticResource MaterialDesignListView}">
+                <DataGrid ItemsSource="{Binding ListViewContent}">
+                    
+                    
+                </DataGrid>
+                <!--<ListView ItemsSource="{Binding ListViewContent}" Foreground="Black">
                     <ListView.View>
                         <GridView>
                             
@@ -55,7 +60,7 @@
                             
                         </GridView>
                     </ListView.View>
-                </ListView>
+                </ListView>-->
             </Grid>
         </Grid>
     </Grid>

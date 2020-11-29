@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Windows;
 
 namespace JariSQLiteViewer
 {
@@ -10,12 +13,12 @@ namespace JariSQLiteViewer
 
         public static string DbLocation { get; set; }
         
-        private static string _appRoot;
 
         public static void InitSettings()
         {
-            _appRoot = Assembly.GetExecutingAssembly().Location;
-
+            string appRoot = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            JObject settings = JObject.Parse(File.ReadAllText(Path.Combine(appRoot,"appsettings.json")));
+            DbLocation = settings["FilePaths"]["DbDefault"].ToString();
 
         }
 
