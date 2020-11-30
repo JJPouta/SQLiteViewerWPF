@@ -9,11 +9,13 @@ namespace JariSQLiteViewer
 {
     public static class DatabaseActions
     {
-        private static string connString = $"Data Source={Settings.DbLocation};Version=3;";
         
-        public static ObservableCollection<string> GetTableNames()
+        public static ObservableCollection<string> GetTableNames(string dbLocation)
         {
             ObservableCollection<string> tableNames = new ObservableCollection<string>();
+            
+            
+            string connString = $"Data Source={dbLocation};Version=3;";
 
             using (var connection = new SQLiteConnection(connString))
             {
@@ -32,9 +34,10 @@ namespace JariSQLiteViewer
         }
 
 
-        public static DataView GetTableContent(string selectedTable)
+        public static DataView GetTableContent(string dbLocation,string selectedTable)
         {
             DataTable dt = new DataTable();
+            string connString = $"Data Source={dbLocation};Version=3;";
 
             using (var connection = new SQLiteConnection(connString))
             {

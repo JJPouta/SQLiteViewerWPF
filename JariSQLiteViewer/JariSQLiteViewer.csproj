@@ -4,12 +4,20 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>Jari Poutanen</Authors>
+    <Product />
+    <Company>Non-commercial</Company>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="appsettings.json" />
     <None Remove="exampleDb.db" />
+    <None Remove="Images\closebtn_blue.png" />
+    <None Remove="Images\closebtn_lime.png" />
     <None Remove="Images\dbimage.png" />
+    <None Remove="Images\folder_blue.png" />
+    <None Remove="Images\folder_lime.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +29,7 @@
     <PackageReference Include="MaterialDesignThemes" Version="3.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.6" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,7 +39,11 @@
     <Resource Include="exampleDb.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\closebtn_blue.png" />
+    <Resource Include="Images\closebtn_lime.png" />
     <Resource Include="Images\dbimage.png" />
+    <Resource Include="Images\folder_blue.png" />
+    <Resource Include="Images\folder_lime.png" />
   </ItemGroup>
 
 </Project>

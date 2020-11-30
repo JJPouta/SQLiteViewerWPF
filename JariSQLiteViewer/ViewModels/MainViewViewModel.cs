@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.IO;
 using System.Text;
 
 namespace JariSQLiteViewer.ViewModels
@@ -28,6 +30,19 @@ namespace JariSQLiteViewer.ViewModels
             }
         }
 
+
+        private string _databaseLocation;
+
+        public string DatabaseLocation
+        {
+            get { return Path.GetFileName(_databaseLocation); }
+            set { _databaseLocation = value;
+                Settings.DbLocation = _databaseLocation;
+                OnPropertyChanged();
+            }
+        }
+
+
         private DataView _listViewContent;
 
         public DataView ListViewContent
@@ -39,10 +54,13 @@ namespace JariSQLiteViewer.ViewModels
         }
 
 
+
         public MainViewViewModel()
         {
             DefaultCommand = new Commands.DefaultCommand(MainViewCommands);
-            Tables = DatabaseActions.GetTableNames();
+            DatabaseLocation = Settings.DbLocation;
+            Tables = DatabaseActions.GetTableNames(Settings.DbLocation);
+            
 
         }
 
@@ -51,10 +69,18 @@ namespace JariSQLiteViewer.ViewModels
             switch(obj.ToString())
             {
                 case "fetchData":
-                    ListViewContent = DatabaseActions.GetTableContent(SelectedTable);
+                    ListViewContent = DatabaseActions.GetTableContent(Settings.DbLocation, SelectedTable);
                     break;
 
-
+                case "changeDatasource":
+                    OpenFileDialog fDialog = new OpenFileDialog();
+                    if (fDialog.ShowDialog() == true)
+                    {
+                        DatabaseLocation = fDialog.FileName;
+                        Settings.DbLocation = fDialog.FileName;
+                        Tables = DatabaseActions.GetTableNames(Settings.DbLocation);
+                    }
+                    break;
             }
         }
 

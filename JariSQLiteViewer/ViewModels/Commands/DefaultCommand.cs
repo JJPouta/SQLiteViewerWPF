@@ -9,7 +9,6 @@ namespace JariSQLiteViewer.ViewModels.Commands
     {
         readonly Action<object> _execute;
         readonly Predicate<object> _canExecute;
-        private Action<string> mainWindowCommands;
 
         public DefaultCommand(Action<object> execute, Predicate<object> canExecute)
         {

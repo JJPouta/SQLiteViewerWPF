@@ -30,5 +30,34 @@ namespace JariSQLiteViewer
         {
             DragMove();
         }
+
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if(sender == folderBtn)
+            {
+                folderBtn.Tag = "/Images/folder_lime.png";
+            }
+            else if(sender == closeWinBtn)
+            {
+                closeWinBtn.Tag = "/Images/closebtn_lime.png";
+            }
+        }
+
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (sender == folderBtn)
+            {
+                folderBtn.Tag = "/Images/folder_blue.png";
+            }
+            else if (sender == closeWinBtn)
+            {
+                closeWinBtn.Tag = "/Images/closebtn_blue.png";
+            }
+        }
+
+        private void closeWinBtn_click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

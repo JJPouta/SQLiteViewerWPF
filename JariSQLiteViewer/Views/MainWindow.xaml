@@ -3,7 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:JariSQLiteViewer"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns:local="clr-namespace:JariSQLiteViewer" 
         AllowsTransparency="True"
         WindowStyle="None"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
@@ -27,40 +30,46 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
-            
+
+            <Button x:Name="closeWinBtn" Style="{StaticResource ImageButtons1}" Tag="/Images/closebtn_blue.png" Width="25" Height="25" Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 8 0 0"
+                    MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="closeWinBtn_click"/>
+
             <Grid Grid.Row="1" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Image x:Name="dbImg" Source="/Images/dbimage.png" Grid.Column="0" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" Margin="10 0 0 0"/>
-                <TextBlock Text="WPF SQLITE VIEWER" Grid.Column="1" FontFamily="Roboto" FontSize="25" Foreground="Purple" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text="WPF SQLITE VIEWER" Grid.Column="1"  FontSize="25" Foreground="Purple" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
 
             <Grid Grid.Column="1" Grid.Row="2">
                 <Border CornerRadius="10" Style="{StaticResource AppBorder1}" BorderThickness="1"/>
                 <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
-                    <ComboBox Width="150" Margin="10 0 10 0" ItemsSource="{Binding Tables}" SelectedValue="{Binding SelectedTable,Mode=OneWayToSource}"></ComboBox>
+                    <Button x:Name="folderBtn" Tag="/Images/folder_blue.png" Style="{StaticResource ImageButtons1}" Width="25" Height="25" Margin="5 0 10 0" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding DefaultCommand}" CommandParameter="changeDatasource"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <TextBox Width="150" Height="50" IsReadOnly="True" Text="{Binding DatabaseLocation,Mode=TwoWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Datasource" VerticalAlignment="Top" VerticalContentAlignment="Bottom">
+                    </TextBox>
+                    <ComboBox Width="150" Margin="10 0 10 0"  ItemsSource="{Binding Tables}"  SelectedValue="{Binding SelectedTable,Mode=OneWayToSource}" materialDesign:HintAssist.Hint="Select Table"/>
                     <Button x:Name="fetchContent" Content="Fetch Data" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="10 0 10 0" Command="{Binding DefaultCommand}" CommandParameter="fetchData"/>
                 </StackPanel>
             </Grid>
             
             <Grid Grid.Column="1" Grid.Row="3" Margin="0 10 0 0">
-                <Border CornerRadius="10" Style="{StaticResource AppBorder1}" BorderThickness="1"/>
-                <DataGrid ItemsSource="{Binding ListViewContent}">
-                    
-                    
+                <Border CornerRadius="10" Style="{StaticResource AppBorder1}" BorderThickness="2"/>
+                <DataGrid ItemsSource="{Binding ListViewContent}" Margin="5,5" >
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                            <Setter Property="Background" Value="#320b86"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
                 </DataGrid>
-                <!--<ListView ItemsSource="{Binding ListViewContent}" Foreground="Black">
-                    <ListView.View>
-                        <GridView>
-                            
-                            
-                            
-                            
-                        </GridView>
-                    </ListView.View>
-                </ListView>-->
             </Grid>
         </Grid>
     </Grid>
